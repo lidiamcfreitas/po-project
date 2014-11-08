@@ -1,5 +1,7 @@
+import java.io.Serializable;
 
-public class User{
+
+public class User implements Comparable<User>, Serializable{
     private String _username;
     private String _name;
     private Directory _mainDir;
@@ -22,7 +24,7 @@ public class User{
     
     public void setDirectory(Directory mainDir) { _mainDir = mainDir; }
     
-    public static void main(String[] args) throws IllegalRemovalException, EntryExistsException, EntryUnknownException {
+    public static void main(String[] args) throws IllegalRemovalException, EntryExistsException, EntryUnknownException, Exception{
         
         Directory d = new Directory("directorio1", "w", "Jose");
         User s = new User(d.getOwnerName(), "Jose Silva", d);
@@ -32,7 +34,14 @@ public class User{
         Directory d2 = new Directory("directorio2", "w", "Someone");
         d.putEntry(d2);
         d.putEntry(f);
+        for (String str : d.listEntry()){
+            System.out.println(str );
+        }
         d.listEntry();
+    }
+    
+    public int compareTo(User user){ // needed to list the entries
+        return getUsername().compareTo(user.getUsername());
     }
     
 }

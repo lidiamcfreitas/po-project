@@ -1,4 +1,4 @@
-public class EntryExistsException extends Exception{
+public class EntryExistsException extends FSException{
 
     public EntryExistsException() {}
 }

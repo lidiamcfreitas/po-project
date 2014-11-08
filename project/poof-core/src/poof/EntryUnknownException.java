@@ -1,4 +1,4 @@
-public class EntryUnknownException extends Exception{
+public class EntryUnknownException extends FSException{
     
     public EntryUnknownException() {}
     

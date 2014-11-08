@@ -1,4 +1,4 @@
-public class IllegalRemovalException extends Exception{
+public class IllegalRemovalException extends FSException{
     
     public IllegalRemovalException() {}
     
