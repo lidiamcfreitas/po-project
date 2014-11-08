@@ -63,12 +63,12 @@ users guardado pelo FileSystem se encontra o SuperUser root.
 
 
 Atributos:
-	-_users:User		: guarda um conjunto de Users registados
+	-_users:User[]		: guarda um conjunto de Users registados
 
 Metodos:
 	+createUser(username:String,name:String) : cria um User e adiciona-o a _users.
 
-	+listUsers() 		: lista os User em _users.
+	+listUsers() 		: lista os utilizadores em _users.
 
 	+listEntry(ename:String, workDir:Directory) : pede ao _workDir que procure
 		 a Entry com o nome ename, verifica que e um Directory e depois 
@@ -149,7 +149,7 @@ e o pai, adicionar novas entradas, remover entradas. Possui tambem informacao so
 pai, onde este se encontra. Este directorio pai e tambem guardado no conjunto de _entries.
 
 Atributos:
-	-_entries:Entry		: guarda todas as entradas que possui.
+	-_entries:Entry[]	: guarda todas as entradas que possui.
 
 Metodos:
 	+listEntry()		: lista as entradas que possui, incluindo ele e o pai.
