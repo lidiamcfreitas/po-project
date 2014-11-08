@@ -29,7 +29,8 @@ public class User{
         User s = new User(d.getOwnerName(), "Jose Silva", d);
         
         File f = new File("ficheiro 1", "w", "Jose", 0, d.getName());
-        d.
+        d.putEntry(f);
+        d.listEntry();
     }
     
 }

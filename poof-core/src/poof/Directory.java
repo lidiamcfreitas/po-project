@@ -6,16 +6,19 @@ import java.util.Collections;
 
 
 public class Directory extends Entry{
+    
     private Map<String, Entry> _entries = new TreeMap<String, Entry>();
     
-    public Directory(String name, String permission, String ownerName, int size){
-        super(name, permission, ownerName, size);
+    
+    public Directory(String name, String permission, String ownerName){
+        super(name, permission, ownerName);
     }
     
     public Entry getEntry(String name) throws EntryUnkownException{
         
         if (_entries.get(name) == null)
-            throw EntryUnkownException;
+            throw EntryUnkownException; // entry doesnt exist
+        
         else
             return _entries.get(name);
         
@@ -23,22 +26,28 @@ public class Directory extends Entry{
     
     public void putEntry(Entry e) throws EntryExistsException{
         
-        // CHANGE SIZE
-        
         if (_entries.get(name) != null)
-            throw EntryExistsException;
-        else
+            throw EntryExistsException; // entry already exists
+        
+        else {
             _entries.put(e.getName(), e);
+            // setSize(_entries.size()*8); // update size
+        }
     }
     
     public void removeEntry(String name) throws EntryUnkownException, IllegalRemovalException {
+        
         if (_entries.get(name) == null)
-            throw EntryUnkownException;
+            throw EntryUnkownException; // entry doesnt exist
+        
         else if ( name == "." || name == ".." )
-            throw IllegalRemovalException;
-        else
+            throw IllegalRemovalException;  // cant delete itself or father directory
+        
+        else {
             _entries.remove(_entries.get(name));
-            
+            // setSize(_entries.size()*8); // update size
+        }
+        
     }
     
     public void listEntry(){
@@ -48,14 +57,15 @@ public class Directory extends Entry{
         Collections.sort(list);
         
         for( Entry e : list){
-            if(e instanceof Directory){
+            
+            if(e instanceof Directory)
                 System.out.printf("d ");
-            } else {
+            
+            else
                 System.out.printf("- ");
-            }
+            
             System.out.println(e.getPermission() + " " + e.getName() + " " + e.getSize() + " " + e.getName());
-            }
+        }
     }
-    
     
 }
