@@ -24,22 +24,6 @@ public class User implements Comparable<User>, Serializable{
     
     public void setDirectory(Directory mainDir) { _mainDir = mainDir; }
     
-    public static void main(String[] args) throws IllegalRemovalException, EntryExistsException, EntryUnknownException, Exception{
-        
-        Directory d = new Directory("directorio1", "w", "Jose");
-        User s = new User(d.getOwnerName(), "Jose Silva", d);
-        
-        File f = new File("ficheiro", "w", "Jose", d.getName());
-        f.writeFile("a lidia e mesmo fixe");
-        Directory d2 = new Directory("directorio2", "w", "Someone");
-        d.putEntry(d2);
-        d.putEntry(f);
-        for (String str : d.listEntry()){
-            System.out.println(str );
-        }
-        d.listEntry();
-    }
-    
     public int compareTo(User user){ // needed to list the entries
         return getUsername().compareTo(user.getUsername());
     }

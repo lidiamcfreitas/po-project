@@ -1,4 +1,6 @@
 import java.io.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public class File extends Entry implements Serializable{
 	private String _dirName;
@@ -21,13 +23,15 @@ public class File extends Entry implements Serializable{
     
    	public void setSize( int size ) { _size = size; }
     
-	public void seeFile() throws IOException, FileNotFoundException{
+	public List<String> seeFile() throws IOException, FileNotFoundException{
 
         BufferedReader in = new BufferedReader( new FileReader(getName()+".txt") );
         String s;
-        while ( (s=in.readLine() )!=null){
-            System.out.println(s); }
+	List<String> list= new ArrayList<String>();
+        while ( (s=in.readLine() )!=null)
+            list.add(s);
         in.close();
+	return list;
     }
 
 	public void writeFile(String text) throws FileNotFoundException, IOException {
