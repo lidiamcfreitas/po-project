@@ -1,0 +1,49 @@
+Menu Principal
+1 - Novo
+2 - Abrir
+0 - Sair
+Escolha uma opção: Menu Principal
+1 - Novo
+2 - Abrir
+3 - Guardar
+4 - Login
+5 - Menu Shell
+6 - Menu Utilizador
+0 - Sair
+Escolha uma opção: Menu de Shell
+1 - Listar
+2 - Listar entrada
+3 - Remover entrada
+4 - Mudar o directório de trabalho
+5 - Criar ficheiro
+6 - Criar directório
+7 - Mostrar o directório de trabalho
+8 - Adicionar linha a ficheiro
+9 - Ver conteúdo de ficheiro
+10 - Mudar permissões de entrada
+11 - Mudar dono de entrada
+0 - Sair
+Escolha uma opção: d - root 16 .
+d - root 24 ..
+Menu de Shell
+1 - Listar
+2 - Listar entrada
+3 - Remover entrada
+4 - Mudar o directório de trabalho
+5 - Criar ficheiro
+6 - Criar directório
+7 - Mostrar o directório de trabalho
+8 - Adicionar linha a ficheiro
+9 - Ver conteúdo de ficheiro
+10 - Mudar permissões de entrada
+11 - Mudar dono de entrada
+0 - Sair
+Escolha uma opção: Menu Principal
+1 - Novo
+2 - Abrir
+3 - Guardar
+4 - Login
+5 - Menu Shell
+6 - Menu Utilizador
+0 - Sair
+Escolha uma opção: 

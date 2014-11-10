@@ -1,0 +1,30 @@
+Menu Principal
+1 - Novo
+2 - Abrir
+3 - Guardar
+4 - Login
+5 - Menu Shell
+6 - Menu Utilizador
+0 - Sair
+Escolha uma opção: Menu Utilizador
+1 - Criar utilizador
+2 - Listar utilizadores
+0 - Sair
+Escolha uma opção: root:super user:/home/root
+sidious:Darth Sidious:/home/sidious
+skywalker:Luke Skywalker:/home/skywalker
+vader:Darth Vader:/home/vader
+yoda:Master Yoda:/home/yoda
+Menu Utilizador
+1 - Criar utilizador
+2 - Listar utilizadores
+0 - Sair
+Escolha uma opção: Menu Principal
+1 - Novo
+2 - Abrir
+3 - Guardar
+4 - Login
+5 - Menu Shell
+6 - Menu Utilizador
+0 - Sair
+Escolha uma opção: 

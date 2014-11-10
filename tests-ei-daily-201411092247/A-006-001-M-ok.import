@@ -1,0 +1,6 @@
+USER|skywalker|Luke Skywalker|/home/skywalker
+USER|sidious|Darth Sidious|/home/sidious
+USER|vader|Darth Vader|/home/vader
+USER|yoda|Master Yoda|/home/yoda
+DIRECTORY|/home/yoda/droids|yoda|public
+DIRECTORY|/home/vader/friends|vader|public

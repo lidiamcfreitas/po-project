@@ -1,0 +1,5 @@
+USER|vader|Darth Vader|/home/vader
+USER|yoda|Master Yoda|/home/yoda
+DIRECTORY|/home/root/luke|root|private
+DIRECTORY|/home/root/vader|root|private
+DIRECTORY|/home/root/yoda|root|private

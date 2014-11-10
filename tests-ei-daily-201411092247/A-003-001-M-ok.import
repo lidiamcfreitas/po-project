@@ -1,0 +1,4 @@
+USER|vader|Darth Vader|/home/vader
+USER|yoda|Master Yoda|/home/yoda
+DIRECTORY|/home/yoda/droids|yoda|public
+DIRECTORY|/home/vader/friends|vader|public
