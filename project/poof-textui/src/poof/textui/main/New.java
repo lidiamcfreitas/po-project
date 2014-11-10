@@ -9,17 +9,18 @@ import ist.po.ui.ValidityPredicate;
 import java.io.IOException;
 
 // FIXME: import project-specific classes
+import poof.Manager;
 
 /**
  * Open a new file.
  */
-public class New extends Command<FIXME> /* FIXME: select core type for receiver */ {
+public class New extends Command<Manager> /* FIXME: select core type for receiver */ {
 
 	/**
 	 * @param receiver
 	 */
-	public New(FIXME /*FIXME: add receiver declaration: type must agree with the above*/) {
-		super(MenuEntry.NEW, FIXME /*FIXME: receiver argument*/);
+	public New(Manager receiver /*FIXME: add receiver declaration: type must agree with the above*/) {
+		super(MenuEntry.NEW, receiver /*FIXME: receiver argument*/);
 	}
 
 	/** @see ist.po.ui.Command#execute() */

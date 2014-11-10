@@ -12,23 +12,30 @@ public class FileSystem implements Serializable{
     
     private Map<String, User> _users = new TreeMap<String, User>();
     private Directory _FSDir;
+    private Directory _home;
     
-    public FileSystem() throws EntryExistsException{
-        
-        _FSDir = new Directory("home", "-", "root");
+    public FileSystem() throws EntryExistsException {
+
+        _FSDir = new Directory("/", "-", "root");
         _FSDir.putFather(_FSDir);
+        
+        _home = new Directory("home", "-", "root");
+        _home.putFather(_FSDir);
+        _FSDir.putEntry(_home);
+        
+        
         Directory _rootDir = new Directory("root", "-", "root");
-        _rootDir.putFather(_FSDir);
-        _FSDir.putEntry(_rootDir);
+        _rootDir.putFather(_home);
+        _home.putEntry(_rootDir);
         
         User _root = new User("root", "Super User", _rootDir);
         _users.put(_root.getUsername(), _root);
+            
+        
         
     }
     
-    //REMOVE
-    
-    public Directory getDirectory() { return _FSDir; }
+
     
     public void createUser(String username,String name) throws UserExistsException, EntryExistsException{
        
@@ -37,9 +44,9 @@ public class FileSystem implements Serializable{
         
         else {
             Directory dir=new Directory(username,"-",username);
-            dir.putFather(_FSDir);
+            dir.putFather(_home);
 
-            _FSDir.putEntry(dir);
+            _home.putEntry(dir);
             
             User u = new User(username,name,dir);
             _users.put(u.getUsername(), u);
@@ -210,10 +217,12 @@ public class FileSystem implements Serializable{
         f1.printUsers();
         
         f1.printEntries((Directory) f1.getDirectory().getEntry("root"));
+        System.out.println("______");
         f1.printEntries(f1.getDirectory());
         
         System.out.println("____________________");
         f1.createFile("ficheiro","-", (Directory) f1.getDirectory().getEntry("lidiamcfreitas"), f1.getUser("lidiamcfreitas"));
+        f1.createFile("jficheiro","-", (Directory) f1.getDirectory().getEntry("lidiamcfreitas"), f1.getUser("lidiamcfreitas"));
         f1.printEntries((Directory) f1.getDirectory().getEntry("lidiamcfreitas"));
         f1.writeFile("ficheiro", " a lidia e fixe",(Directory) f1.getDirectory().getEntry("lidiamcfreitas"), f1.getUser("lidiamcfreitas"));
     }
@@ -227,5 +236,7 @@ public class FileSystem implements Serializable{
         for (String u : dir.listEntry()){
             System.out.println(u);}
     }
+    
+    public Directory getDirectory() { return _FSDir; }
 
 }

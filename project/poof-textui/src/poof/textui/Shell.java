@@ -6,6 +6,7 @@ import static ist.po.ui.Dialog.IO;
 import java.io.IOException;
 
 // FIXME: import project-specific classes
+import poof.Manager;
 
 /**
  * Class that starts the application's textual interface.
@@ -16,6 +17,7 @@ public class Shell {
 	 */
 	public static void main(String[] args) {
 		// FIXME: create and initialize core objects
+        Manager manager = new Manager();
 
 		String datafile = System.getProperty("import"); //$NON-NLS-1$
 		if (datafile != null) {

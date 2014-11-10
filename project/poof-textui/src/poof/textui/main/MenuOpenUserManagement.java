@@ -9,17 +9,18 @@ import ist.po.ui.ValidityPredicate;
 import java.io.IOException;
 
 // FIXME: import project-specific classes
+import poof.Manager;
 
 /**
  * Open user management menu.
  */
-public class MenuOpenUserManagement extends Command<FIXME> /* FIXME: select core type for receiver */ {
+public class MenuOpenUserManagement extends Command<Manager> /* FIXME: select core type for receiver */ {
 
 	/**
 	 * @param receiver
 	 */
-	public MenuOpenUserManagement(FIXME /*FIXME: add receiver declaration: type must agree with the above*/) {
-		super(MenuEntry.MENU_USER_MGT, FIXME /*FIXME: receiver argument*/, FIXME /*FIXME: validity argument*/);
+	public MenuOpenUserManagement(Manager receiver /*FIXME: add receiver declaration: type must agree with the above*/) {
+		super(MenuEntry.MENU_USER_MGT, receiver /*FIXME: receiver argument*/, FIXME /*FIXME: validity argument*/);
 	}
 
 	/** @see ist.po.ui.Command#execute() */

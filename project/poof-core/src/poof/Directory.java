@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class Directory extends Entry implements Serializable{
     
     private Map<String, Entry> _entries = new TreeMap<String, Entry>();
-    private Directory _fatherDir;
+    
     
      public Directory(String name, String permission, String ownerName){
         super(name, permission, ownerName);
@@ -43,7 +43,6 @@ public class Directory extends Entry implements Serializable{
     
     public void putFather(Directory e) throws EntryExistsException{
         _entries.put("..", e);
-        _fatherDir = e;
     }
     
 //    public void putFather(Entry e) throws EntryExistsException{
@@ -82,6 +81,8 @@ public class Directory extends Entry implements Serializable{
     public int getSize() { return _entries.size()*8; }
     
     public List<String> listEntry(){
+        
+        Directory _fatherDir = (Directory) _entries.get("..");
 
         List<Entry> list = getEntries();
         
@@ -92,18 +93,18 @@ public class Directory extends Entry implements Serializable{
         
         res.add(s);
         
+        s ="d " + _fatherDir.getPermission() + " " + _fatherDir.getOwnerName() + " " + _fatherDir.getSize() + " ..";
+        
+        res.add(s);
+
+        list.remove(_fatherDir);
+        
         for( Entry e : list){
             
-            if (e==_fatherDir){
-                s ="d " + e.getPermission() + " " + e.getOwnerName() + " " + e.getSize() + " ..";
-            }
-            else {
-            
-                if(e instanceof Directory)
-                    s="d " + e.getPermission() + " " + e.getOwnerName() + " " + e.getSize() + " " + e.getName();
-                else
-                    s = "- " + e.getPermission() + " " + e.getOwnerName() + " " + e.getSize() + " " + e.getName();
-            }
+            if(e instanceof Directory)
+                s="d " + e.getPermission() + " " + e.getOwnerName() + " " + e.getSize() + " " + e.getName();
+            else
+                s = "- " + e.getPermission() + " " + e.getOwnerName() + " " + e.getSize() + " " + e.getName();
             
             res.add(s); 
         }
@@ -112,7 +113,7 @@ public class Directory extends Entry implements Serializable{
     
     public String getPath() throws EntryUnknownException {
         if (this==getFather()){
-            return "/" + getName();
+            return getName();
         } else {
             return getFather().getPath() + "/" + getName();
         }
