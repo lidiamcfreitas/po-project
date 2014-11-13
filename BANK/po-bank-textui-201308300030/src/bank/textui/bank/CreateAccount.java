@@ -30,6 +30,7 @@ public class CreateAccount extends Command<Bank> {
 		double amount = IO.readFloat(Message.requestInitialBalance());
 		BankAccount account = _receiver.createAccount(amount);
 		IO.println(Message.accountCreated(account.getId()));
+        
 	}
 }
 

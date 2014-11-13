@@ -1,0 +1,177 @@
+Relatorio UML - Grupo 021 			Lidia Freitas		78559
+						Valentyn Hulevych	79019
+
+						PO-2014 1 Semestre	LEIC-A
+
+NOTA IMPORTANTE:
+Visto que a entrega do UML ja tinha sido realizada mas ainda tinhamos tempo para
+editar certos problemas que so vimos mais tarde, estes sao apresentados neste 
+relatorio pelo indicador 'UML:' junto as respectivas classes onde o erro se 
+encontra. Esperamos que nao seja um problema.
+
+*********************************************************************************
+Manager
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Manager - tera um sistema de ficheiros activo, um utilizador activo, um directorio
+de trabalho. Ira implementar todas as funcoes que sao pedidas ao sistema, nao sabe
+como e que estas se realizam, apenas pede a outras classes que as executem.
+
+Atributos:
+        -_activeFS:FileSystem   : guarda o FileSystem em utilizacao.
+        -_loggedIn:User         : guarda o User com login feito.
+        -_workDir:Directory     : guarda o directorio de trabalho em utilizacao.
+
+Metodos:
+   Regra geral os metodos do Manager servem para pedir ao _activeFS que realize uma
+accao, sem ter  de se preocupar como e  se e permitida,  tendo apenas os argumentos 
+pedidos ao utilizador.
+
+UML : no UML as primeiras 3 classes estao em portugues, aqui foram alteradas por motivos
+de coerencia linguistica.
+
+Alguns metodos explicados:
+        +create()               : cria um novo FileSystem, .
+UML: +Criar()
+
+        +open(fname:FILE)  	: abre um FileSystem guardado num ficheiro 
+		procurado atraves do seu nome - fname.
+UML: +open(fname:File) deveria ser FILE em vez de File para distinguir o ficheiro de
+	disco da classe File implementada no projecto.
+
+        +save(fname:FILE)  	: guarda o _activeFS num ficheiro com o nome de fname.
+UML: +guardar(fname: File) deveria ser FILE pelos mesmos motivos que em open(fname:FILE)
+
+	+login(username:String)	: pergunta ao _activeFS se o User
+		com o nome username existe, e se sim actualiza o _loggedIn.
+
+	+createUser(username:String,name:String) : cria um User e pede ao _activeFS
+		que o adicione aos _users.
+
+	+listEntries()		: pede ao _activeFS que liste as _entries do _workDir, 
+		atraves de _activeFS.listEntry(_workDir).
+
+*********************************************************************************
+
+
+FileSystem
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+FileSystem - tera uma lista de utilizadores registados. O seu objectivo e realizar 
+as accoes sobre o sistema de ficheiros, verificando se e possivel realiza-las e fazendo
+uso das classes: User, Directory, File e Entry. Tem-se em conta que no conjunto de
+users guardado pelo FileSystem se encontra o SuperUser root. 
+
+
+Atributos:
+	-_users:User[]		: guarda um conjunto de Users registados
+
+Metodos:
+	+createUser(username:String,name:String) : cria um User e adiciona-o a _users.
+
+	+listUsers() 		: lista os utilizadores em _users.
+
+	+listEntry(ename:String, workDir:Directory) : pede ao _workDir que procure
+		 a Entry com o nome ename, verifica que e um Directory e depois 
+		lista-a atraves do metodo listEntry() dos objectos da classe Directory.
+
+	+removeEntry(ename:String, workDir:Directory, loggedIn:User) : pede ao _workDir
+		 que procure a Entry com o nome ename, verifica que o utilizador loggedIn
+		tem acesso a essa Entry atraves do _name da Entry e remove-a chamando 
+		_workDir.removeEntry(entryFound).
+	
+	+changeWorkDir(dname:String, workDir:Directory) : pede ao _workDir que procure a
+		 entrada com o nome dname que verifica que e um Directory e devolve-o 
+		atraves de um getter e este e utilizado para actualizar o _workDir no Manager.
+
+	+createFile(fname:String, workDir:Directory, loggedIn:User) : 
+		cria um File, com o owner do User que o criou e com o nome fnmame e 
+		pede ao _workDir que o adicione a lista de _entries.
+
+	+getPath(workDir:Directory)	: percorre o caminho dos _fatherDir a partir 
+		do _workDir ate chegar a raiz dos directorios e imprime o caminho.
+	
+	+writeFile(fname:String, text:String, loggedIn:User, workDir:Directory) : pede ao 
+		_workDir que procure a entrada com o nome fname, verifica que a entry e um
+		 File, verifica que o loggedIn tem permissao para modificar o ficheiro e se
+		 sim chama o metodo do write(text:String) do File.
+UML: esquecemo-nos de por o argumento workDir:Directory no metodo writeFile
+
+	+seeFile(fname:String, workDir:Directory): procura nas _entries do _workDir ate encontrar
+		uma entry que tenha o nome fname, verifica que a entry e um File e chama 
+		o metodo seeFile() da classe File.
+	
+	+changePerm(ename:String, perm: String, workDir:Directory, loggedIn:User) : 
+		pede ao _workDir que procure a entrada com o nome ename, verifica 
+		que o loggedIn tem permissao para modificar a Entry e se sim utiliza
+		um setter da Entry para modificar a _permission.
+
+	+changeOwner(ename:String, user:User, workDir:Directory, loggedIn:User) : 
+		pede ao _workDir que procure a entrada 
+		com o nome ename, verifica que o loggedIn tem permissao para modificar a 
+		Entry e se sim utiliza um setter da Entry para modificar o _owner.
+
+*********************************************************************************
+
+
+User
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+User - sera identificado pelo _username. Possui tambem um nome e um directorio inicial
+que sera criado quando o utilizador for registado.
+
+Atributos:
+	-_username:String 	: guarda o identificador do User - username.
+	-_name:String 		: guarda o nome do User.
+	-_mainDir:Directory	: guarda o directorio principal do User
+*********************************************************************************
+
+
+Entry
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Entry - sao entradas. Decidimos implementar esta superclasse de directorios
+	e ficheiros para podermos beneficiar dos conceitos de Heranca, visto que 
+	tanto os directorios como os ficheiros sao entradas, assim como de Polimorfismo
+	pois os directorios possuem um conjunto de Entradas, que podem ser do tipo
+	Directory ou File.
+
+Atributos:
+	-_name:String 		: guarda o nome da Entry.
+	-_permission:String 	: guarda a permissao da Entry, privado o publico.
+	-_size:Int		: guarda o tamanho da entrada, especificado no enunciado.
+
+*********************************************************************************
+
+
+Directory
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Directory - os directorios sao entradas (Heranca). Estes conseguem iterar sobre as suas entradas,
+escolher uma entrada comparando com o nome dela, listar as entradas que possui mais ele proprio
+e o pai, adicionar novas entradas, remover entradas. Possui tambem informacao sobre o directorio
+pai, onde este se encontra. Este directorio pai e tambem guardado no conjunto de _entries.
+
+Atributos:
+	-_entries:Entry[]	: guarda todas as entradas que possui.
+
+Metodos:
+	+listEntry()		: lista as entradas que possui, incluindo ele e o pai.
+	+addEntry(e:Entry)	: adiciona uma entrada, as entradas que possui.
+	+removeEntry(e:Entry)	: remove uma entrada das entradas que possui.
+
+*********************************************************************************
+
+
+File
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+File - os ficheiros sao entradas, (Heranca). Estes conseguem imprimir o seu conteudo e acrescentar
+caracteres ao texto que possuem. Decidimos nao ter um atributo conteudo porque o 
+ficheiro cada vez necessitar de aceder a este conteudo, tanto para escrita como para
+leitura fara uma leitura do disco. Apesar de este processo ser demorado possibilita
+nao necessitar de guardar o conteudo de todos os ficheiros em cada objecto, que sobrecarregaria
+muito o sistema.
+
+Metodos:
+	+seeFile()		: imprime o seu conteudo.
+	+writeFile(text:String)	: acrescenta caracteres ao texto que possui.
+
+
+_________________________________________________________________________________
+_________________________________________________________________________________
